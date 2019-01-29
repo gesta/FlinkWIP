@@ -53,14 +53,14 @@ public class FlinkWIP {
         FlinkKafkaConsumer011<Tuple2<String, String>> consumer = new FlinkKafkaConsumer011<Tuple2<String, String>>(
                 params.getRequired("skus-topic"),
                 deserializationSchema,
-                params.getProperties());
+                kparams);
         DataStream<Tuple2<String, String>> idStream = env.addSource(consumer);
 
         // Create datastream for processing `offers`
         FlinkKafkaConsumer011<Tuple2<String, JSONObject>> eventConsumer = new FlinkKafkaConsumer011<Tuple2<String, JSONObject>>(
         	params.getRequired("offers-topic"),
             new EventDeserializerJSONObject(),
-            params.getProperties());
+            kparams);
         DataStream<Tuple2<String,JSONObject>> eventStream = env.addSource(eventConsumer); 
 
         ConnectedStreams<Tuple2<String, String>, Tuple2<String,JSONObject>> colStreams = idStream.connect(eventStream);
@@ -72,7 +72,7 @@ public class FlinkWIP {
         stream.addSink(new FlinkKafkaProducer011<String>(
                 params.getRequired("write-topic"),
                 new SimpleStringSchema(),
-                params.getProperties()));
+                kparams));
         env.execute("FlinkWIP");
     }
 }
