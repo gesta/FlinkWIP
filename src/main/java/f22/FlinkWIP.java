@@ -20,7 +20,6 @@ public class FlinkWIP {
 	public static void main(String[] args) throws Exception {
 		final ParameterTool params = ParameterTool.fromArgs(args);
 		ClassLoader classLoader = FlinkWIP.class.getClassLoader();
-        String truststore_path = classLoader.getResource("eventador_truststore.jks").getPath();
 
         // Configure ScramLogin via jaas
         String module = "org.apache.kafka.common.security.scram.ScramLoginModule";
@@ -37,9 +36,6 @@ public class FlinkWIP {
         kparams.setProperty("security.protocol", "SASL_SSL");
         kparams.setProperty("sasl.mechanism", "SCRAM-SHA-256");
         kparams.setProperty("sasl.jaas.config", jaasConfig);
-        kparams.setProperty("ssl.truststore.type", "jks");
-        kparams.setProperty("ssl.truststore.location", truststore_path);
-        kparams.setProperty("ssl.truststore.password", params.getRequired("truststore.password"));
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000));
