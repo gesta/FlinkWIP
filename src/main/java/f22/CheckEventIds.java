@@ -36,7 +36,7 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
         if (control.equals("processing")) {
             String eventId = event.f1.get("id").toString();
             if (ids.contains(eventId)){
-                col2.collect(event.f1.get("id").toString());
+                col2.collect(event.f1.toString());
             }
         }
     }
