@@ -27,7 +27,6 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
         }
 
         if (control.equals("pause")) {
-        	if(ids.equals(null)) { ids = new ArrayList<>(); }
             ids.add(message);
         }
     }
