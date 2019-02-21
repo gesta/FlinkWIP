@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, Tuple2<String,JSONObject>, String> {
     private static final long serialVersionUID = 1L;
-    List<String> ids;
-    String control = "";
+    private static List<String> ids = new ArrayList<>();
+    private static String control = "";
 
     public void flatMap1(Tuple2<String, String> input, Collector<String> col1){
         String message = input.f1;
