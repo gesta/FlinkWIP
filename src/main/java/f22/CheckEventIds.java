@@ -23,6 +23,7 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
         } else if (message.equals("stop")) {
             // Start processing event
             control = "processing";
+            return;
         }
 
         if (control.equals("pause")) {
