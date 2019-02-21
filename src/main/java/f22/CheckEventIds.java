@@ -13,6 +13,7 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
     private static List<String> ids = new ArrayList<>();
     private static String control = "";
 
+    @Override
     public void flatMap1(Tuple2<String, String> input, Collector<String> col1){
         String message = input.f1;
         if (message.equals("start")){
@@ -30,6 +31,7 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
         }
     }
 
+    @Override
     public void flatMap2(Tuple2<String,JSONObject> event, Collector<String> col2){
         if (control.equals("processing")) {
             String eventId = event.f1.get("id").toString();
