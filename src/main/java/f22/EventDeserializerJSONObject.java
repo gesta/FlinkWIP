@@ -10,6 +10,9 @@ public class EventDeserializerJSONObject extends AbstractDeserializationSchema<T
 
     @Override
     public Tuple2<String, JSONObject> deserialize(byte[] message) throws IOException {
-        return Tuple2.of(null, new JSONObject(new String(message, "UTF-8")));
+    	if(message == null) {
+			return Tuple2.of(null, new JSONObject(""));
+		}
+    	return Tuple2.of(null, new JSONObject(new String(message, "UTF-8")));
     }
 }

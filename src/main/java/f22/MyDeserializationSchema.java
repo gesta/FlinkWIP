@@ -10,6 +10,9 @@ public class MyDeserializationSchema extends AbstractDeserializationSchema<Tuple
 
 	@Override
     public Tuple2<String, String> deserialize(byte[] message) throws IOException {
+		if(message == null) {
+			return Tuple2.of(null, "");
+		}
         return Tuple2.of(null, new String(message, "UTF-8"));
     }
 }
