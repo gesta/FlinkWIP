@@ -37,11 +37,16 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
 
     @Override
     public void flatMap2(Tuple2<String,JSONObject> event, Collector<String> col2){
+    	JSONObject offer = event.f1;
+    	// Perform id inclusion check if in "processing" mode
         if (control.equals("processing")) {
-            JSONObject offer = event.f1;
-            if (offer.has("id") && ids.contains(offer.get("id").toString())){
+            if (offer.has("id") && ids.contains(offer.get("id").toString())) {
                 col2.collect(offer.toString());
             }
+        }
+        // Do not perform id inclusion check in any other case
+        else {
+            col2.collect(offer.toString());
         }
     }
 
