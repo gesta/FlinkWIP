@@ -24,6 +24,10 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
             // Start processing event
             control = "processing";
             return;
+        } else if (message.equals("flush")) {
+        	// Flush the collected SKUs
+        	ids = new ArrayList<>();
+        	return;
         }
 
         if (control.equals("pause")) {
