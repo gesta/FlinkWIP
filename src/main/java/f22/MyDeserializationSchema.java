@@ -10,7 +10,7 @@ public class MyDeserializationSchema extends AbstractDeserializationSchema<Tuple
 
 	@Override
     public Tuple2<String, String> deserialize(byte[] message){
-		Tuple2<String, String> emptyTuple = Tuple2.of(null, "{}");
+		Tuple2<String, String> emptyTuple = Tuple2.of(null, "");
 		if(message == null) {
 			return emptyTuple;
 		}
