@@ -44,10 +44,5 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
                 col2.collect(offer.toString());
             }
         }
-        // Do not perform id inclusion check in any other case
-        else {
-            col2.collect(offer.toString());
-        }
     }
-
 }
