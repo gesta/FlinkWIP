@@ -1,6 +1,7 @@
 package f22;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -42,8 +43,8 @@ public class CheckEventIds implements CoFlatMapFunction<Tuple2<String,String>, T
         if (control.equals("processing") && offer.has("sku") && ids.contains(offer.get("sku").toString())) {
             col2.collect(offer.toString());
         }
-        // Do not perform id inclusion check if in "flush" mode
-        else if (control.equals("flush")) {
+        // Do not perform id inclusion check if there are no ids to compare to
+        else if (ids.equals(Collections.emptyList())) {
             col2.collect(offer.toString());
         }
     }
